@@ -43,15 +43,10 @@ final public class StateMachine {
         }
     }
     
-    public func process(event name: String) {
-        let event = Event(name)
-        process(event: event)
-    }
-
-    public func process(event: Event) {
+    public func process(event: String, callback: TransitionBlock? = nil) {
         var transitions: [Transition]?
         lockQueue.sync {
-            transitions = self.transitionsByEvent[event.name]
+            transitions = self.transitionsByEvent[event]
         }
         
         workingQueue.async {
@@ -59,18 +54,18 @@ final public class StateMachine {
             
             if performableTransitions.count == 0 {
                 self.callbackQueue.async {
-                    event.executeDiscardedCallback()
+                    callback?(.failure)
                 }
                 return
             }
             
             for transition in performableTransitions {
-                self.log(message: "[Stateful 🦜]: Processing event '\(event.name)' from '\(self.internalCurrentState)'")
+                self.log(message: "[Stateful 🦜]: Processing event '\(event)' from '\(self.internalCurrentState)'")
                 self.callbackQueue.async {
                     transition.executePreBlock()
                 }
                 
-                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event.name)' from '\(transition.from)' to '\(transition.to)'")
+                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
                 
                 let previousState = self.internalCurrentState
                 self.internalCurrentState = transition.to
@@ -80,10 +75,10 @@ final public class StateMachine {
                     transition.executePostBlock()
                 }
                 
-                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event.name)' from '\(transition.from)' to '\(transition.to)'")
+                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
                 
                 self.callbackQueue.async {
-                    event.executeCallback()
+                    callback?(.success)
                 }
             }
         }

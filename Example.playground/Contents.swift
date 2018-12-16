@@ -77,17 +77,17 @@ class StateMachineExamples {
         stateMachine.add(transition: t4)
         stateMachine.add(transition: t5)
         
-        let event = Stateful.Event("start", callback: { result in
+        let callback: TransitionBlock = { result in
             switch result {
             case .success:
                 print("Event 'start' was processed")
             case .failure:
                 print("Event 'start' cannot currently be processed.")
             }
-        })
+        }
         
-        stateMachine.process(event: event)
-        stateMachine.process(event: event)
+        stateMachine.process(event: "start", callback: callback)
+        stateMachine.process(event: "start", callback: callback)
         stateMachine.process(event: "stop")
         stateMachine.process(event: "start")
         stateMachine.process(event: "stop")
