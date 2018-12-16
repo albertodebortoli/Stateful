@@ -10,19 +10,19 @@ import Foundation
 public struct Transition {
     
     let event: String
-    let fromState: String
-    let toState: String
+    let from: String
+    let to: String
     private let preBlock: (() -> Void)?
     private let postBlock: (() -> Void)?
     
     public init(with event: String,
-                fromState: String,
-                toState: String,
+                from: String,
+                to: String,
                 preBlock: (() -> Void)? = nil,
                 postBlock: (() -> Void)? = nil) {
         self.event = event
-        self.fromState = fromState
-        self.toState = toState
+        self.from = from
+        self.to = to
         self.preBlock = preBlock
         self.postBlock = postBlock
     }

@@ -14,16 +14,16 @@ class TransitionTests: XCTestCase {
         let event = "event"
         let from = "from"
         let to = "to"
-        let transition = Transition(with: event, fromState: from, toState: to)
+        let transition = Transition(with: event, from: from, to: to)
         XCTAssertEqual(transition.event, event)
-        XCTAssertEqual(transition.fromState, from)
-        XCTAssertEqual(transition.toState, to)
+        XCTAssertEqual(transition.from, from)
+        XCTAssertEqual(transition.to, to)
     }
     
     func test_Callback() {
         let expectation1 = XCTestExpectation(description: #function)
         let expectation2 = XCTestExpectation(description: #function)
-        let transition = Transition(with: "event", fromState: "from", toState: "to", preBlock: {
+        let transition = Transition(with: "event", from: "from", to: "to", preBlock: {
             expectation1.fulfill()
         }, postBlock: {
             expectation2.fulfill()

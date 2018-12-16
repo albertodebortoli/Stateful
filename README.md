@@ -24,30 +24,43 @@ let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbac
 let stateMachine = StateMachine(initialState: "idle", callbackQueue: dispatchQueue)
 ```
 
+- define the events and status you need. `Transition` expects strings by design. E.g.:
+
+```swift
+enum Event: String {
+    case start
+    case pause
+}
+
+enum State: String {
+    case idle
+    case started
+}
+```
+
 - create transitions and add them to the state machine (the state machine will automatically recognize the new states)
 
 ```swift
-let t1 = Transition(with: "start", fromState: "idle", toState: "started", preBlock: {
-    print("Gonna move from Idle to Started!")
-}) {
-    print("Just moved from Idle to Started!")
-}
+let t1 = Transition(with: Event.start.rawValue, fromState: State.idle.rawValue, toState: State.started.rawValue)
 
-let t2 = Transition(with: "pause", fromState: "started", toState: "idle", preBlock: {
-    print("Gonna move from Started to Idle!")
-}) {
-    print("Just moved from Started to Idle!")
-}
+let t2 = Transition(with: Event.pause.rawValue,
+                    from: State.started.rawValue,
+                    to: State.idle.rawValue,
+                    preBlock: {
+                        print("Gonna move from \(State.started) to \(State.idle)!")
+                    }, postBlock: {
+                        print("Just moved from \(State.started) to \(State.idle)!")
+    })
 
-stateMachine.addTransition(transition: t1)
-stateMachine.addTransition(transition: t2)
+stateMachine.add(transition: t1)
+stateMachine.add(transition: t2)
 ```
 
 - process events like so
 
 ```swift
-stateMachine.process(event: "start")
-stateMachine.process(event: "pause")
+stateMachine.process(event: Event.start.rawValue)
+stateMachine.process(event: Event.pause.rawValue)
 ```
 
 ### Logging

@@ -31,8 +31,8 @@ class aTests: XCTestCase {
         stateMachine.process(event: "e1")
         XCTAssertEqual(stateMachine.currentState, "idle")
         
-        let transition = Transition(with: "e1", fromState: "idle", toState: "started")
-        stateMachine.addTransition(transition: transition)
+        let transition = Transition(with: "e1", from: "idle", to: "started")
+        stateMachine.add(transition: transition)
         stateMachine.process(event: "e1")
         XCTAssertEqual(stateMachine.currentState, "started")
     }
@@ -41,12 +41,12 @@ class aTests: XCTestCase {
         stateMachine.process(event: "e1")
         XCTAssertEqual(stateMachine.currentState, "idle")
         
-        let transition1 = Transition(with: "e1", fromState: "idle", toState: "started")
-        stateMachine.addTransition(transition: transition1)
-        let transition2 = Transition(with: "e2", fromState: "started", toState: "idle")
-        stateMachine.addTransition(transition: transition2)
-        let transition3 = Transition(with: "e1", fromState: "started", toState: "idle")
-        stateMachine.addTransition(transition: transition3)
+        let transition1 = Transition(with: "e1", from: "idle", to: "started")
+        stateMachine.add(transition: transition1)
+        let transition2 = Transition(with: "e2", from: "started", to: "idle")
+        stateMachine.add(transition: transition2)
+        let transition3 = Transition(with: "e1", from: "started", to: "idle")
+        stateMachine.add(transition: transition3)
         
         stateMachine.process(event: "e1")
         XCTAssertEqual(stateMachine.currentState, "started")
