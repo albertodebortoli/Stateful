@@ -52,27 +52,33 @@ final public class StateMachine {
         workingQueue.async {
             let performableTransitions = transitions?.filter { return $0.from == self.internalCurrentState } ?? []
             for transition in performableTransitions {
-                if self.enableLogging { print("[Stateful 🦜]: Processing event '\(event)' from '\(self.internalCurrentState)'") }
+                self.log(message: "[Stateful 🦜]: Processing event '\(event)' from '\(self.internalCurrentState)'")
                 self.callbackQueue.async {
                     transition.processPreBlock()
                 }
                 
-                if self.enableLogging { print("[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'") }
+                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
                 
                 let previousState = self.internalCurrentState
                 self.internalCurrentState = transition.to
                 
-                if self.enableLogging { print("[Stateful 🦜]: Processed state change from '\(previousState)' to '\(transition.to)'") }
+                self.log(message: "[Stateful 🦜]: Processed state change from '\(previousState)' to '\(transition.to)'")
                 self.callbackQueue.async {
                     transition.processPostBlock()
                 }
                 
-                if self.enableLogging { print("[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'") }
+                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
                 
                 self.callbackQueue.async {
                     callback?()
                 }
             }
+        }
+    }
+    
+    private func log(message: String) {
+        if self.enableLogging {
+            print(message)
         }
     }
 }
