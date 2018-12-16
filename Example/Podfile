@@ -6,9 +6,5 @@ target 'Stateful_Example' do
   platform :ios, 10.0
     
   pod 'Stateful', :path => '../', :testspecs => ['StatefulUnitTests']
-
-  target 'Stateful_Tests' do
-    inherit! :search_paths
-    
-  end
+  
 end
