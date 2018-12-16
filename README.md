@@ -11,7 +11,7 @@ Stateful is a minimalistic, thread-safe, non-boilerplate and super easy to use s
 
 ## Example
 
-- define the events and states you need. E.g.:
+- define the events and statuses you need. E.g.:
 
 ```swift
 enum EventType: String {
@@ -38,7 +38,7 @@ let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbac
 let stateMachine = StateMachine(initialState: StateType.idle.rawValue, callbackQueue: dispatchQueue)
 ```
 
-- create transitions and add them to the state machine (the state machine will automatically recognize the new states)
+- create transitions and add them to the state machine (the state machine will automatically recognize the new statuses)
 
 ```swift
 let t1 = Transition(with: EventType.start.rawValue,
@@ -62,21 +62,14 @@ stateMachine.add(transition: t2)
 
 ```swift
 stateMachine.process(event: EventType.start.rawValue)
-stateMachine.process(event: EventType.pause.rawValue)
-```
-
-or by using the `Event` struct to allow a callback
-
-```swift
-let event = Event(EventType.start.rawValue, callback: { result in
+stateMachine.process(event: EventType.pause.rawValue, callback: { result in
     switch result {
     case .success:
-        print("Event 'start' was processed")
+        print("Event 'pause' was processed")
     case .failure:
-        print("Event 'start' cannot currently be processed.")
+        print("Event 'pause' cannot currently be processed.")
     }
 })
-stateMachine.process(event: event)
 ```
 
 ### Logging
