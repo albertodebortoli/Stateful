@@ -18,8 +18,8 @@ public typealias TransitionBlock = ((TrasitionResult) -> Void)
 public struct Transition {
     
     public let event: String
-    public let from: String
-    public let to: String
+    public let source: String
+    public let destination: String
     let preBlock: ExecutionBlock?
     let postBlock: ExecutionBlock?
     
@@ -29,8 +29,8 @@ public struct Transition {
                 preBlock: ExecutionBlock? = nil,
                 postBlock: ExecutionBlock? = nil) {
         self.event = event
-        self.from = from
-        self.to = to
+        self.source = from
+        self.destination = to
         self.preBlock = preBlock
         self.postBlock = postBlock
     }

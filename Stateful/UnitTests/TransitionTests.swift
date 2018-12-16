@@ -16,8 +16,8 @@ class TransitionTests: XCTestCase {
         let to = "to"
         let transition = Transition(with: event, from: from, to: to)
         XCTAssertEqual(transition.event, event)
-        XCTAssertEqual(transition.from, from)
-        XCTAssertEqual(transition.to, to)
+        XCTAssertEqual(transition.source, from)
+        XCTAssertEqual(transition.destination, to)
     }
     
     func test_Callback() {

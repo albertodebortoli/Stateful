@@ -50,7 +50,7 @@ final public class StateMachine {
         }
         
         workingQueue.async {
-            let performableTransitions = transitions?.filter { return $0.from == self.internalCurrentState } ?? []
+            let performableTransitions = transitions?.filter { return $0.source == self.internalCurrentState } ?? []
             
             if performableTransitions.count == 0 {
                 self.callbackQueue.async {
@@ -65,17 +65,17 @@ final public class StateMachine {
                     transition.executePreBlock()
                 }
                 
-                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
+                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
                 
                 let previousState = self.internalCurrentState
-                self.internalCurrentState = transition.to
+                self.internalCurrentState = transition.destination
                 
-                self.log(message: "[Stateful 🦜]: Processed state change from '\(previousState)' to '\(transition.to)'")
+                self.log(message: "[Stateful 🦜]: Processed state change from '\(previousState)' to '\(transition.destination)'")
                 self.callbackQueue.async {
                     transition.executePostBlock()
                 }
                 
-                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.from)' to '\(transition.to)'")
+                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
                 
                 self.callbackQueue.async {
                     callback?(.success)
