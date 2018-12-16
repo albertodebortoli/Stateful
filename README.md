@@ -11,20 +11,7 @@ Stateful is a minimalistic, thread-safe, non-boilerplate and super easy to use s
 
 ## Example
 
-- create a state machine with the initial state and assign it to a property
-
-```swift
-let stateMachine = StateMachine(initialState: "idle")
-```
-
-`StateMachine` will use the main queue to execute the transition pre and post blocks but you can optionally provide a custom one.
-
-```swift
-let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbackQueue")
-let stateMachine = StateMachine(initialState: "idle", callbackQueue: dispatchQueue)
-```
-
-- define the events and status you need. `Transition` expects strings by design. E.g.:
+- define the events and states you need. E.g.:
 
 ```swift
 enum EventType: String {
@@ -38,11 +25,26 @@ enum StateType: String {
 }
 ```
 
+- create a state machine with the initial state (you might want to retain it in a property)
+
+```swift
+let stateMachine = StateMachine(initialState: StateType.idle.rawValue)
+```
+
+`StateMachine` will use the main queue to execute the transition pre and post blocks but you can optionally provide a custom one.
+
+```swift
+let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbackQueue")
+let stateMachine = StateMachine(initialState: StateType.idle.rawValue, callbackQueue: dispatchQueue)
+```
+
 - create transitions and add them to the state machine (the state machine will automatically recognize the new states)
 
 ```swift
-let t1 = Transition(with: EventType.start.rawValue, fromState: StateType.idle.rawValue, toState: StateType.started.rawValue)
-
+let t1 = Transition(with: EventType.start.rawValue,
+                    fromState: StateType.idle.rawValue,
+                    toState: StateType.started.rawValue)
+                    
 let t2 = Transition(with: EventType.pause.rawValue,
                     from: StateType.started.rawValue,
                     to: StateType.idle.rawValue,
@@ -66,7 +68,7 @@ stateMachine.process(event: EventType.pause.rawValue)
 or by using the `Event` struct to allow a callback
 
 ```swift
-let event = Stateful.Event("start", callback: { result in
+let event = Event(EventType.start.rawValue, callback: { result in
     switch result {
     case .success:
         print("Event 'start' was processed")
