@@ -9,11 +9,11 @@ import Foundation
 
 public struct Transition {
     
-    let event: String
-    let from: String
-    let to: String
-    private let preBlock: (() -> Void)?
-    private let postBlock: (() -> Void)?
+    public let event: String
+    public let from: String
+    public let to: String
+    let preBlock: (() -> Void)?
+    let postBlock: (() -> Void)?
     
     public init(with event: String,
                 from: String,
@@ -27,11 +27,11 @@ public struct Transition {
         self.postBlock = postBlock
     }
     
-    func processPreBlock() {
+    func executePreBlock() {
         preBlock?()
     }
     
-    func processPostBlock() {
+    func executePostBlock() {
         postBlock?()
     }
 }

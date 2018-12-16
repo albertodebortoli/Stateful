@@ -28,10 +28,9 @@ class TransitionTests: XCTestCase {
         }, postBlock: {
             expectation2.fulfill()
         })
-        transition.processPreBlock()
+        transition.executePreBlock()
         wait(for: [expectation1], timeout: 2)
-        transition.processPostBlock()
+        transition.executePostBlock()
         wait(for: [expectation2], timeout: 2)
     }
-    
 }

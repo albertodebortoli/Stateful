@@ -47,7 +47,7 @@ let t2 = Transition(with: Event.pause.rawValue,
                     from: State.started.rawValue,
                     to: State.idle.rawValue,
                     preBlock: {
-                        print("Gonna move from \(State.started) to \(State.idle)!")
+                        print("Going to move from \(State.started) to \(State.idle)!")
                     }, postBlock: {
                         print("Just moved from \(State.started) to \(State.idle)!")
     })
@@ -62,6 +62,10 @@ stateMachine.add(transition: t2)
 stateMachine.process(event: Event.start.rawValue)
 stateMachine.process(event: Event.pause.rawValue)
 ```
+
+or using the `Event` struct:
+
+
 
 ### Logging
 
