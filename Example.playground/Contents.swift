@@ -77,10 +77,13 @@ class StateMachineExamples {
         stateMachine.add(transition: t4)
         stateMachine.add(transition: t5)
         
-        let event = Stateful.Event("start", callback: {
-            print("Event 'start' was processed")
-        }, discarded: {
-            print("Event 'start' cannot currently be processed.")
+        let event = Stateful.Event("start", callback: { result in
+            switch result {
+            case .success:
+                print("Event 'start' was processed")
+            case .failure:
+                print("Event 'start' cannot currently be processed.")
+            }
         })
         
         stateMachine.process(event: event)

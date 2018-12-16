@@ -10,22 +10,19 @@ import Foundation
 public struct Event {
     
     public let name: String
-    let callback: (() -> Void)?
-    let discardedCallback: (() -> Void)?
+    let callback: TransitionBlock?
     
     public init(_ name: String,
-                callback: (() -> Void)? = nil,
-                discarded: (() -> Void)? = nil) {
+                callback: TransitionBlock? = nil) {
         self.name = name
         self.callback = callback
-        self.discardedCallback = discarded
     }
     
     func executeCallback() {
-        callback?()
+        callback?(.success)
     }
     
     func executeDiscardedCallback() {
-        discardedCallback?()
+        callback?(.failure)
     }
 }

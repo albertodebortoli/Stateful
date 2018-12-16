@@ -27,12 +27,12 @@ let stateMachine = StateMachine(initialState: "idle", callbackQueue: dispatchQue
 - define the events and status you need. `Transition` expects strings by design. E.g.:
 
 ```swift
-enum Event: String {
+enum EventType: String {
     case start
     case pause
 }
 
-enum State: String {
+enum StateType: String {
     case idle
     case started
 }
@@ -41,15 +41,15 @@ enum State: String {
 - create transitions and add them to the state machine (the state machine will automatically recognize the new states)
 
 ```swift
-let t1 = Transition(with: Event.start.rawValue, fromState: State.idle.rawValue, toState: State.started.rawValue)
+let t1 = Transition(with: EventType.start.rawValue, fromState: StateType.idle.rawValue, toState: StateType.started.rawValue)
 
-let t2 = Transition(with: Event.pause.rawValue,
-                    from: State.started.rawValue,
-                    to: State.idle.rawValue,
+let t2 = Transition(with: EventType.pause.rawValue,
+                    from: StateType.started.rawValue,
+                    to: StateType.idle.rawValue,
                     preBlock: {
-                        print("Going to move from \(State.started) to \(State.idle)!")
+                        print("Going to move from \(StateType.started) to \(StateType.idle)!")
                     }, postBlock: {
-                        print("Just moved from \(State.started) to \(State.idle)!")
+                        print("Just moved from \(StateType.started) to \(StateType.idle)!")
     })
 
 stateMachine.add(transition: t1)
@@ -59,13 +59,23 @@ stateMachine.add(transition: t2)
 - process events like so
 
 ```swift
-stateMachine.process(event: Event.start.rawValue)
-stateMachine.process(event: Event.pause.rawValue)
+stateMachine.process(event: EventType.start.rawValue)
+stateMachine.process(event: EventType.pause.rawValue)
 ```
 
-or using the `Event` struct:
+or by using the `Event` struct to allow a callback
 
-
+```swift
+let event = Stateful.Event("start", callback: { result in
+    switch result {
+    case .success:
+        print("Event 'start' was processed")
+    case .failure:
+        print("Event 'start' cannot currently be processed.")
+    }
+})
+stateMachine.process(event: event)
+```
 
 ### Logging
 

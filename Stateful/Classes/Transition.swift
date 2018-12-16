@@ -7,19 +7,27 @@
 
 import Foundation
 
+public enum TrasitionResult {
+    case success
+    case failure
+}
+
+public typealias ExecutionBlock = (() -> Void)
+public typealias TransitionBlock = ((TrasitionResult) -> Void)
+
 public struct Transition {
     
     public let event: String
     public let from: String
     public let to: String
-    let preBlock: (() -> Void)?
-    let postBlock: (() -> Void)?
+    let preBlock: ExecutionBlock?
+    let postBlock: ExecutionBlock?
     
     public init(with event: String,
                 from: String,
                 to: String,
-                preBlock: (() -> Void)? = nil,
-                postBlock: (() -> Void)? = nil) {
+                preBlock: ExecutionBlock? = nil,
+                postBlock: ExecutionBlock? = nil) {
         self.event = event
         self.from = from
         self.to = to
