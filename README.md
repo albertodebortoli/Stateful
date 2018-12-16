@@ -1,6 +1,6 @@
 # Stateful 🦜
 
-[![CI Status](https://img.shields.io/travis/albertodebortoli/Stateful.svg?style=flat)](https://travis-ci.org/albertodebortoli/Stateful)
+[![Build Status](https://app.bitrise.io/app/5b1bed7dfe1521fd/status.svg?token=O8hUIAOKc9Ij6yey8qkQvg&branch=master)](https://app.bitrise.io/app/5b1bed7dfe1521fd)
 [![Version](https://img.shields.io/cocoapods/v/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
 [![License](https://img.shields.io/cocoapods/l/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
 [![Platform](https://img.shields.io/cocoapods/p/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
