@@ -9,22 +9,22 @@ import XCTest
 @testable import Stateful
 
 class aTests: XCTestCase {
-
+    
     typealias TransitionDefault = Transition<StateType, EventType>
     typealias StateMachineDefault = StateMachine<StateType, EventType>
-
+    
     enum EventType {
         case e1
         case e2
     }
-
+    
     enum StateType {
         case idle
         case started
         case running
         case completed
     }
-
+    
     var stateMachine: StateMachine<StateType, EventType>!
     
     override func setUp() {

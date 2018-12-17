@@ -1,14 +1,12 @@
-//: A UIKit based Playground for presenting user interface
-  
 import UIKit
 import PlaygroundSupport
 import Stateful
 
 class StateMachineExamples {
-
+    
     typealias TransitionDefault = Transition<StateType, EventType>
     typealias StateMachineDefault = StateMachine<StateType, EventType>
-
+    
     enum EventType {
         case start
         case stop
@@ -31,46 +29,46 @@ class StateMachineExamples {
         stateMachine.enableLogging = true
         
         let t1 = TransitionDefault(with: EventType.start,
-                            from: StateType.idle,
-                            to: StateType.started,
-                            preBlock: {
-                                print("Going to move from \(StateType.idle) to \(StateType.started)!")
+                                   from: StateType.idle,
+                                   to: StateType.started,
+                                   preBlock: {
+                                    print("Going to move from \(StateType.idle) to \(StateType.started)!")
         }, postBlock: {
             print("Just moved from \(StateType.idle) to \(StateType.started)!")
         })
         
         let t2 = TransitionDefault(with: .stop,
-                            from: .started,
-                            to: .idle,
-                            preBlock: {
-                                print("Going to move from \(StateType.started) to Idle!")
+                                   from: .started,
+                                   to: .idle,
+                                   preBlock: {
+                                    print("Going to move from \(StateType.started) to Idle!")
         }, postBlock: {
             print("Just moved from \(StateType.started) to \(StateType.idle)!")
         })
         
         let t3 = TransitionDefault(with: .execute,
-                            from: .started,
-                            to: .running,
-                            preBlock: {
-                                print("Going to move from \(StateType.started) to \(StateType.running)!")
+                                   from: .started,
+                                   to: .running,
+                                   preBlock: {
+                                    print("Going to move from \(StateType.started) to \(StateType.running)!")
         }, postBlock: {
             print("Just moved from \(StateType.started) to \(StateType.running)!")
         })
         
         let t4 = TransitionDefault(with: .stop,
-                            from: .running,
-                            to: .idle,
-                            preBlock: {
-                                print("Going to move from \(StateType.running) to \(StateType.idle)!")
+                                   from: .running,
+                                   to: .idle,
+                                   preBlock: {
+                                    print("Going to move from \(StateType.running) to \(StateType.idle)!")
         }, postBlock: {
             print("Just moved from \(StateType.running) to \(StateType.idle)!")
         })
         
         let t5 = TransitionDefault(with: .complete,
-                            from: .running,
-                            to: .completed,
-                            preBlock: {
-                                print("Going to move from \(StateType.running) to \(StateType.completed)!")
+                                   from: .running,
+                                   to: .completed,
+                                   preBlock: {
+                                    print("Going to move from \(StateType.running) to \(StateType.completed)!")
         }, postBlock: {
             print("Just moved from \(StateType.running) to \(StateType.completed)!")
         })

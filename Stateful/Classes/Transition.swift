@@ -16,13 +16,13 @@ public typealias ExecutionBlock = (() -> Void)
 public typealias TransitionBlock = ((TrasitionResult) -> Void)
 
 public struct Transition<State, Event> {
-
+    
     public let event: Event
     public let source: State
     public let destination: State
     let preBlock: ExecutionBlock?
     let postBlock: ExecutionBlock?
-
+    
     public init(with event: Event,
                 from: State,
                 to: State,
@@ -34,11 +34,11 @@ public struct Transition<State, Event> {
         self.preBlock = preBlock
         self.postBlock = postBlock
     }
-
+    
     func executePreBlock() {
         preBlock?()
     }
-
+    
     func executePostBlock() {
         postBlock?()
     }
