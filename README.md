@@ -14,12 +14,12 @@ Stateful is a minimalistic, thread-safe, non-boilerplate and super easy to use s
 - define the events and statuses you need. E.g.:
 
 ```swift
-enum EventType: String {
+enum EventType {
     case start
     case pause
 }
 
-enum StateType: String {
+enum StateType {
     case idle
     case started
 }
@@ -28,26 +28,26 @@ enum StateType: String {
 - create a state machine with the initial state (you might want to retain it in a property)
 
 ```swift
-let stateMachine = StateMachine(initialState: StateType.idle.rawValue)
+let stateMachine = StateMachine<StateType, EventType>(initialState: StateType.idle)
 ```
 
 `StateMachine` will use the main queue to execute the transition pre and post blocks but you can optionally provide a custom one.
 
 ```swift
 let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbackQueue")
-let stateMachine = StateMachine(initialState: StateType.idle.rawValue, callbackQueue: dispatchQueue)
+let stateMachine = StateMachine<StateType, EventType>(initialState: StateType.idle, callbackQueue: dispatchQueue)
 ```
 
 - create transitions and add them to the state machine (the state machine will automatically recognize the new statuses)
 
 ```swift
-let t1 = Transition(with: EventType.start.rawValue,
-                    fromState: StateType.idle.rawValue,
-                    toState: StateType.started.rawValue)
+let t1 = Transition<StateType, EventType>(with: EventType.start,
+                    fromState: StateType.idle,
+                    toState: StateType.started)
                     
-let t2 = Transition(with: EventType.pause.rawValue,
-                    from: StateType.started.rawValue,
-                    to: StateType.idle.rawValue,
+let t2 = Transition<StateType, EventType>(with: EventType.pause,
+                    from: StateType.started,
+                    to: StateType.idle,
                     preBlock: {
                         print("Going to move from \(StateType.started) to \(StateType.idle)!")
                     }, postBlock: {
@@ -61,8 +61,8 @@ stateMachine.add(transition: t2)
 - process events like so
 
 ```swift
-stateMachine.process(event: EventType.start.rawValue)
-stateMachine.process(event: EventType.pause.rawValue, callback: { result in
+stateMachine.process(event: EventType.start)
+stateMachine.process(event: EventType.pause, callback: { result in
     switch result {
     case .success:
         print("Event 'pause' was processed")
