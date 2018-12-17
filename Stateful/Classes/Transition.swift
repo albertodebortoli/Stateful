@@ -15,17 +15,17 @@ public enum TrasitionResult {
 public typealias ExecutionBlock = (() -> Void)
 public typealias TransitionBlock = ((TrasitionResult) -> Void)
 
-public struct Transition {
-    
-    public let event: String
-    public let source: String
-    public let destination: String
+public struct Transition<State, Event> {
+
+    public let event: Event
+    public let source: State
+    public let destination: State
     let preBlock: ExecutionBlock?
     let postBlock: ExecutionBlock?
-    
-    public init(with event: String,
-                from: String,
-                to: String,
+
+    public init(with event: Event,
+                from: State,
+                to: State,
                 preBlock: ExecutionBlock? = nil,
                 postBlock: ExecutionBlock? = nil) {
         self.event = event
@@ -34,11 +34,11 @@ public struct Transition {
         self.preBlock = preBlock
         self.postBlock = postBlock
     }
-    
+
     func executePreBlock() {
         preBlock?()
     }
-    
+
     func executePostBlock() {
         postBlock?()
     }
