@@ -28,9 +28,9 @@ class StateMachineExamples {
                                                callbackQueue: dispatchQueue)
         stateMachine.enableLogging = true
         
-        let t1 = TransitionDefault(with: EventType.start,
-                                   from: StateType.idle,
-                                   to: StateType.started,
+        let t1 = TransitionDefault(with: .start,
+                                   from: .idle,
+                                   to: .started,
                                    preBlock: {
                                     print("Going to move from \(StateType.idle) to \(StateType.started)!")
         }, postBlock: {
