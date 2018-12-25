@@ -28,7 +28,7 @@ enum StateType {
 - create a state machine with the initial state (you might want to retain it in a property)
 
 ```swift
-let stateMachine = StateMachine<StateType, EventType>(initialState: StateType.idle)
+let stateMachine = StateMachine<StateType, EventType>(initialState: .idle)
 ```
 
 `StateMachine` will use the main queue to execute the transition pre and post blocks but you can optionally provide a custom one.
@@ -41,13 +41,13 @@ let stateMachine = StateMachine<StateType, EventType>(initialState: StateType.id
 - create transitions and add them to the state machine (the state machine will automatically recognize the new statuses)
 
 ```swift
-let t1 = Transition<StateType, EventType>(with: EventType.start,
-                    fromState: StateType.idle,
-                    toState: StateType.started)
+let t1 = Transition<StateType, EventType>(with: .start,
+                    from: .idle,
+                    to: .started)
                     
-let t2 = Transition<StateType, EventType>(with: EventType.pause,
-                    from: StateType.started,
-                    to: StateType.idle,
+let t2 = Transition<StateType, EventType>(with: .pause,
+                    from: .started,
+                    to: .idle,
                     preBlock: {
                         print("Going to move from \(StateType.started) to \(StateType.idle)!")
                     }, postBlock: {
@@ -61,8 +61,8 @@ stateMachine.add(transition: t2)
 - process events like so
 
 ```swift
-stateMachine.process(event: EventType.start)
-stateMachine.process(event: EventType.pause, callback: { result in
+stateMachine.process(event: .start)
+stateMachine.process(event: .pause, callback: { result in
     switch result {
     case .success:
         print("Event 'pause' was processed")
