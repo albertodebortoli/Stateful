@@ -42,7 +42,7 @@ class aTests: XCTestCase {
         XCTAssertEqual(stateMachine.currentState, .idle)
     }
     
-    func test_ProcessingSingleTransition() {
+    func test_SingleTransition() {
         stateMachine.process(event: .e1)
         XCTAssertEqual(stateMachine.currentState, .idle)
         
@@ -52,7 +52,7 @@ class aTests: XCTestCase {
         XCTAssertEqual(stateMachine.currentState, .started)
     }
     
-    func test_MultipleTransistionsWithSameEvent() {
+    func test_MultipleTransistions() {
         stateMachine.process(event: .e1)
         XCTAssertEqual(stateMachine.currentState, .idle)
         
