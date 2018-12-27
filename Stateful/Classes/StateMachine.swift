@@ -7,7 +7,7 @@
 
 import Foundation
 
-final public class StateMachine<State: Hashable, Event: Hashable> {
+open class StateMachine<State: Hashable, Event: Hashable> {
     
     public var enableLogging: Bool = false
     public var currentState: State {
@@ -34,16 +34,18 @@ final public class StateMachine<State: Hashable, Event: Hashable> {
     
     public func add(transition: Transition<State, Event>) {
         lockQueue.sync {
-            let transitions = self.transitionsByEvent[transition.event]
-            if transitions == nil {
-                self.transitionsByEvent[transition.event] = [transition]
-            } else {
+            if let transitions = self.transitionsByEvent[transition.event] {
+                if (transitions.filter { return $0.source == transition.source }.count > 0) {
+                    assertionFailure("Transition with event '\(transition.event)' and source '\(transition.source)' already existing.")
+                }
                 self.transitionsByEvent[transition.event]?.append(transition)
+            } else {
+                self.transitionsByEvent[transition.event] = [transition]
             }
         }
     }
     
-    public func process(event: Event, callback: TransitionBlock? = nil) {
+    public func process(event: Event, execution: (() -> Void)? = nil, callback: TransitionBlock? = nil) {
         var transitions: [Transition<State, Event>]?
         lockQueue.sync {
             transitions = self.transitionsByEvent[event]
@@ -59,34 +61,40 @@ final public class StateMachine<State: Hashable, Event: Hashable> {
                 return
             }
             
-            for transition in performableTransitions {
-                self.log(message: "[Stateful 🦜]: Processing event '\(event)' from '\(self.internalCurrentState)'")
-                self.callbackQueue.async {
-                    transition.executePreBlock()
-                }
-                
-                self.log(message: "[Stateful 🦜]: Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
-                
-                let previousState = self.internalCurrentState
-                self.internalCurrentState = transition.destination
-                
-                self.log(message: "[Stateful 🦜]: Processed state change from '\(previousState)' to '\(transition.destination)'")
-                self.callbackQueue.async {
-                    transition.executePostBlock()
-                }
-                
-                self.log(message: "[Stateful 🦜]: Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
-                
-                self.callbackQueue.async {
-                    callback?(.success)
-                }
+            assert(performableTransitions.count == 1, "Found multiple transitions with event '\(event)' and source '\(self.internalCurrentState)'.")
+            
+            let transition = performableTransitions.first!
+            
+            self.log(message: "Processing event '\(event)' from '\(self.internalCurrentState)'")
+            self.callbackQueue.async {
+                transition.executePreBlock()
+            }
+            
+            self.log(message: "Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
+            
+            self.callbackQueue.async {
+                execution?()
+            }
+            
+            let previousState = self.internalCurrentState
+            self.internalCurrentState = transition.destination
+            
+            self.log(message: "Processed state change from '\(previousState)' to '\(transition.destination)'")
+            self.callbackQueue.async {
+                transition.executePostBlock()
+            }
+            
+            self.log(message: "Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
+            
+            self.callbackQueue.async {
+                callback?(.success)
             }
         }
     }
     
     private func log(message: String) {
         if self.enableLogging {
-            print(message)
+            print("[Stateful 🦜] \(message)")
         }
     }
 }
