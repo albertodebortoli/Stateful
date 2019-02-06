@@ -1,6 +1,6 @@
 PODS:
-  - Stateful (2.0.0)
-  - Stateful/StatefulUnitTests (2.0.0)
+  - Stateful (2.1.0)
+  - Stateful/StatefulUnitTests (2.1.0)
 
 DEPENDENCIES:
   - Stateful (from `../`)
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Stateful: 8659107d9f3f145ef44541516e200934ec812f67
+  Stateful: 7b4aa410c069a89c21b5ed808fc1e6b66e759544
 
 PODFILE CHECKSUM: fdc8f7c66c53952f99654a096c20b117e4b1514d
 
