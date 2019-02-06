@@ -1,6 +1,6 @@
 {
   "name": "Stateful",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "summary": "The easiest state machine in Swift",
   "description": "A minimalistic, thread-safe, non-boilerplate and super easy to use state machine in Swift.",
   "homepage": "https://github.com/albertodebortoli/Stateful",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/albertodebortoli/Stateful.git",
-    "tag": "2.1.0"
+    "tag": "2.1.1"
   },
   "social_media_url": "https://twitter.com/albertodebo",
   "platforms": {
