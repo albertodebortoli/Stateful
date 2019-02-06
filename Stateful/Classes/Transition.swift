@@ -7,13 +7,13 @@
 
 import Foundation
 
-public enum TrasitionResult {
+public enum TransitionResult {
     case success
     case failure
 }
 
 public typealias ExecutionBlock = (() -> Void)
-public typealias TransitionBlock = ((TrasitionResult) -> Void)
+public typealias TransitionBlock = ((TransitionResult) -> Void)
 
 public struct Transition<State, Event> {
     
