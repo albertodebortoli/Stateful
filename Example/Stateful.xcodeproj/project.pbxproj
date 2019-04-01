@@ -30,7 +30,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D3A2F69E7B32609D20055F6 /* Pods_Stateful_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stateful_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C94A5996231FEFF8606AD6F0 /* Stateful.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Stateful.podspec; path = ../Stateful.podspec; sourceTree = "<group>"; };
+		C94A5996231FEFF8606AD6F0 /* Stateful.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Stateful.podspec; path = ../Stateful.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D07FA21358F5C341A4E1848A /* Pods-Stateful_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stateful_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D561BFC1C27DD55B33B243B9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D769B95FBC5DFF74006C201C /* Pods-Stateful_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stateful_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +180,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -237,7 +238,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Stateful/Stateful.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -248,7 +249,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -339,7 +340,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -389,7 +390,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -48,9 +48,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C37CFFC1B7BDB6034AC6FE159B0D3029"
-               BuildableName = "Stateful-Unit-Tests.xctest"
-               BlueprintName = "Stateful-Unit-Tests"
+               BlueprintIdentifier = "163B961CF4459E58B50CE6C7AA402082"
+               BuildableName = "Stateful-Unit-StatefulUnitTests.xctest"
+               BlueprintName = "Stateful-Unit-StatefulUnitTests"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
