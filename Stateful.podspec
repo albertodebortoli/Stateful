@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Stateful'
-  s.version          = '2.1.1'
+  s.version          = '2.2.0'
   s.summary          = 'The easiest state machine in Swift'
   s.description      = <<-DESC
 A minimalistic, thread-safe, non-boilerplate and super easy to use state machine in Swift.
@@ -21,7 +21,7 @@ A minimalistic, thread-safe, non-boilerplate and super easy to use state machine
   s.social_media_url = 'https://twitter.com/albertodebo'
 
   s.ios.deployment_target = '8.0'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.source_files = 'Stateful/Classes/**/*.swift'
   s.frameworks = 'Foundation'
