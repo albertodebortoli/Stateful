@@ -1,6 +1,6 @@
 # Stateful 🦜
 
-[![Build Status](https://travis-ci.com/albertodebortoli/Stateful.svg?branch=master)](https://travis-ci.com/albertodebortoli/Stateful)
+[![Build Status](https://travis-ci.org/albertodebortoli/Stateful.svg?branch=master)](https://travis-ci.org/albertodebortoli/Stateful)
 [![Version](https://img.shields.io/cocoapods/v/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
 [![License](https://img.shields.io/cocoapods/l/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
 [![Platform](https://img.shields.io/cocoapods/p/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
