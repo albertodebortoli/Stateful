@@ -23,10 +23,10 @@ A minimalistic, thread-safe, non-boilerplate and super easy to use state machine
   s.ios.deployment_target = '8.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'Stateful/Classes/**/*.swift'
+  s.source_files = 'Stateful/Sources/**/*.swift'
   s.frameworks = 'Foundation'
 
   s.test_spec 'StatefulUnitTests' do |test_spec|
-    test_spec.source_files = 'Stateful/UnitTests/**/*.swift'
+    test_spec.source_files = 'Stateful/Tests/**/*.swift'
   end
 end

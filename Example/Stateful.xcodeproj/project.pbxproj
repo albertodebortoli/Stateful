@@ -18,7 +18,6 @@
 /* Begin PBXFileReference section */
 		1A6B155621447A2F6B3B5D2D /* Pods_Stateful_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stateful_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A2EFA7F5FC0B1D09494C10 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		2F3875C02603F6E100F3F9E1 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
 		400A75FD4773978277C3E03E /* Pods-Stateful_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stateful_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stateful_Tests/Pods-Stateful_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4A9959AE87D029CF6EA3E4BD /* Pods-Stateful_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stateful_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stateful_Tests/Pods-Stateful_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F3685B921C6E46600A1630D /* Example.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Example.playground; path = ../Example.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -111,7 +110,6 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				2F3875C02603F6E100F3F9E1 /* Package.swift */,
 				C94A5996231FEFF8606AD6F0 /* Stateful.podspec */,
 				D561BFC1C27DD55B33B243B9 /* README.md */,
 				22A2EFA7F5FC0B1D09494C10 /* LICENSE */,
@@ -238,15 +236,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Stateful_Example/Pods-Stateful_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Stateful/Stateful.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stateful.framework",
 			);
