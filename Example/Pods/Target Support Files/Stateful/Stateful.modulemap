@@ -1,6 +1,0 @@
-framework module Stateful {
-  umbrella header "Stateful-umbrella.h"
-
-  export *
-  module * { export * }
-}
