@@ -1,5 +1,5 @@
 //
-//  StateMachine.swift
+//  StateMachineTests.swift
 //  Stateful
 //
 //  Created by Alberto De Bortoli on 16/12/2018.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Stateful
 
-class aTests: XCTestCase {
+class StateMachineTests: XCTestCase {
     
     typealias TransitionDefault = Transition<StateType, EventType>
     typealias StateMachineDefault = StateMachine<StateType, EventType>

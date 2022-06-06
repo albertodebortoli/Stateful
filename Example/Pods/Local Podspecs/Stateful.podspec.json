@@ -9,7 +9,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Alberto De Bortoli": "albertodebortoli.website@gmail.com"
+    "Alberto De Bortoli": "albertodebortoli.com"
   },
   "source": {
     "git": "https://github.com/albertodebortoli/Stateful.git",
@@ -17,16 +17,16 @@
   },
   "social_media_url": "https://twitter.com/albertodebo",
   "platforms": {
-    "ios": "8.0"
+    "ios": "13.0"
   },
   "swift_versions": "5.0",
-  "source_files": "Stateful/Classes/**/*.swift",
+  "source_files": "Framework/Sources/**/*.swift",
   "frameworks": "Foundation",
   "testspecs": [
     {
-      "name": "StatefulUnitTests",
+      "name": "UnitTests",
       "test_type": "unit",
-      "source_files": "Stateful/UnitTests/**/*.swift"
+      "source_files": "Tests/Sources/**/*.swift"
     }
   ],
   "swift_version": "5.0"

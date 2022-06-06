@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1340"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "Stateful_Example.app"
-               BlueprintName = "Stateful_Example"
+               BuildableName = "DemoApp.app"
+               BlueprintName = "DemoApp"
                ReferencedContainer = "container:Stateful.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,36 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      enableThreadSanitizer = "YES"
-      codeCoverageEnabled = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Stateful_Example.app"
-            BlueprintName = "Stateful_Example"
-            ReferencedContainer = "container:Stateful.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
             reference = "container:Stateful/UnitTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9038E3F38BC02A70064BA0B374B664E2"
-               BuildableName = "Stateful-Unit-StatefulUnitTests.xctest"
-               BlueprintName = "Stateful-Unit-StatefulUnitTests"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -72,8 +49,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Stateful_Example.app"
-            BlueprintName = "Stateful_Example"
+            BuildableName = "DemoApp.app"
+            BlueprintName = "DemoApp"
             ReferencedContainer = "container:Stateful.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,8 +66,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "Stateful_Example.app"
-            BlueprintName = "Stateful_Example"
+            BuildableName = "DemoApp.app"
+            BlueprintName = "DemoApp"
             ReferencedContainer = "container:Stateful.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

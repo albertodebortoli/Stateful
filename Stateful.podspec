@@ -16,17 +16,17 @@ A minimalistic, thread-safe, non-boilerplate and super easy to use state machine
 
   s.homepage         = 'https://github.com/albertodebortoli/Stateful'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Alberto De Bortoli' => 'albertodebortoli.website@gmail.com' }
+  s.author           = { 'Alberto De Bortoli' => 'albertodebortoli.com' }
   s.source           = { :git => 'https://github.com/albertodebortoli/Stateful.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/albertodebo'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '13.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'Stateful/Classes/**/*.swift'
+  s.source_files = 'Framework/Sources/**/*.swift'
   s.frameworks = 'Foundation'
 
-  s.test_spec 'StatefulUnitTests' do |test_spec|
-    test_spec.source_files = 'Stateful/UnitTests/**/*.swift'
+  s.test_spec 'UnitTests' do |test_spec|
+    test_spec.source_files = 'Tests/Sources/**/*.swift'
   end
 end
