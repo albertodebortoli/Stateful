@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Stateful'
-  s.version          = '2.2.0'
+  s.version          = ENV['LIB_VERSION']
   s.summary          = 'The easiest state machine in Swift'
   s.description      = <<-DESC
 A minimalistic, thread-safe, non-boilerplate and super easy to use state machine in Swift.

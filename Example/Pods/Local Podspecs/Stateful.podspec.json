@@ -19,7 +19,7 @@
   "platforms": {
     "ios": "8.0"
   },
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "source_files": "Stateful/Classes/**/*.swift",
   "frameworks": "Foundation",
   "testspecs": [
@@ -28,5 +28,6 @@
       "test_type": "unit",
       "source_files": "Stateful/UnitTests/**/*.swift"
     }
-  ]
+  ],
+  "swift_version": "5.0"
 }
