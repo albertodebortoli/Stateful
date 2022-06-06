@@ -36,5 +36,6 @@ Carthage/Build
 #
 # Pods/
 
+.swiftpm
 fastlane/test_output
 derived_data/
