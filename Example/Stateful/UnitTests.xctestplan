@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "A4671963-5926-4AFF-9299-2FE37E0AD873",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Stateful.xcodeproj",
+      "identifier" : "607FACCF1AFB9204008FA782",
+      "name" : "Stateful_Example"
+    },
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Pods\/Pods.xcodeproj",
+        "identifier" : "9038E3F38BC02A70064BA0B374B664E2",
+        "name" : "Stateful-Unit-StatefulUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
