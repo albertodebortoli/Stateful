@@ -12,7 +12,7 @@
     "targetForVariableExpansion" : {
       "containerPath" : "container:Stateful.xcodeproj",
       "identifier" : "607FACCF1AFB9204008FA782",
-      "name" : "Stateful_Example"
+      "name" : "DemoApp"
     },
     "threadSanitizerEnabled" : true
   },
@@ -20,8 +20,8 @@
     {
       "target" : {
         "containerPath" : "container:Pods\/Pods.xcodeproj",
-        "identifier" : "9038E3F38BC02A70064BA0B374B664E2",
-        "name" : "Stateful-Unit-StatefulUnitTests"
+        "identifier" : "34FAD9AACC181DDC49782F1AA25A26E9",
+        "name" : "Stateful-Unit-UnitTests"
       }
     }
   ],

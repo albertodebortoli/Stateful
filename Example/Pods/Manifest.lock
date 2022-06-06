@@ -1,18 +1,18 @@
 PODS:
   - Stateful (2.2.0)
-  - Stateful/StatefulUnitTests (2.2.0)
+  - Stateful/UnitTests (2.2.0)
 
 DEPENDENCIES:
   - Stateful (from `../`)
-  - Stateful/StatefulUnitTests (from `../`)
+  - Stateful/UnitTests (from `../`)
 
 EXTERNAL SOURCES:
   Stateful:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Stateful: 9dbd35a46027200187a218feefb786a9e8b609bf
+  Stateful: b62cfa2af17eaf1d00dc53e8cf24f67dab5e4b56
 
-PODFILE CHECKSUM: fdc8f7c66c53952f99654a096c20b117e4b1514d
+PODFILE CHECKSUM: 2164c77a0c7226aa8ad3bb61c61bd2c3cf0b4bda
 
 COCOAPODS: 1.11.3

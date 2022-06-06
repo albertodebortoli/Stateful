@@ -15,10 +15,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios unit_tests
+### ios unit_tests_cocoapods
 
 ```sh
-[bundle exec] fastlane ios unit_tests
+[bundle exec] fastlane ios unit_tests_cocoapods
+```
+
+
+
+### ios unit_tests_spm
+
+```sh
+[bundle exec] fastlane ios unit_tests_spm
 ```
 
 

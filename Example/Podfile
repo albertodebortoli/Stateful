@@ -2,9 +2,9 @@ source 'https://cdn.cocoapods.org/'
 
 use_frameworks!
 
-target 'Stateful_Example' do
-  platform :ios, 10.0
+target 'DemoApp' do
+  platform :ios, 13.0
     
-  pod 'Stateful', :path => '../', :testspecs => ['StatefulUnitTests']
+  pod 'Stateful', :path => '../', :testspecs => ['UnitTests']
   
 end
