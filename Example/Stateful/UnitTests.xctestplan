@@ -9,6 +9,15 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:Pods\/Pods.xcodeproj",
+          "identifier" : "576CDFDCACFD9BB02F4DF6E35C530CC7",
+          "name" : "Stateful"
+        }
+      ]
+    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:Stateful.xcodeproj",
       "identifier" : "607FACCF1AFB9204008FA782",
