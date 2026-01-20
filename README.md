@@ -68,6 +68,10 @@ do {
 } catch {
     print("Event 'pause' cannot currently be processed.")
 }
+
+try await stateMachine.process(event: .start) {
+    print("Execution block called.")
+}
 ```
 
 ### Logging

@@ -104,6 +104,8 @@ class StateMachineExamples {
         try await stateMachine.process(event: .start)
         try await stateMachine.process(event: .stop)
         try await stateMachine.process(event: .start)
-        try await stateMachine.process(event: .execute)
+        try await stateMachine.process(event: .execute) {
+            print("Execution block called.")
+        }
     }
 }

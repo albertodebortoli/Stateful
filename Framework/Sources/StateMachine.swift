@@ -28,7 +28,7 @@ public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable
         }
     }
     
-    public func process(event: Event) throws {
+    public func process(event: Event, execution: ExecutionBlock? = nil) async throws {
         let transitions = transitionsByEvent[event]
         let performableTransitions = transitions?.filter { $0.source == currentState } ?? []
         
@@ -41,15 +41,17 @@ public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable
         let transition = performableTransitions.first!
         
         log(message: "Processing event '\(event)' from '\(currentState)'")
-        transition.executePreBlock()
+        try await transition.executePreBlock()
         
         log(message: "Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
+        
+        try await execution?()
         
         let previousState = currentState
         currentState = transition.destination
         
         log(message: "Processed state change from '\(previousState)' to '\(transition.destination)'")
-        transition.executePostBlock()
+        try await transition.executePostBlock()
         
         log(message: "Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
     }

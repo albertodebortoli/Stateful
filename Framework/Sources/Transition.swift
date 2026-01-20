@@ -2,7 +2,7 @@
 
 import Foundation
 
-public typealias ExecutionBlock = @Sendable () -> Void
+public typealias ExecutionBlock = @Sendable () async throws -> Void
 
 public struct Transition<State: Sendable, Event: Sendable>: Sendable {
     
@@ -24,11 +24,11 @@ public struct Transition<State: Sendable, Event: Sendable>: Sendable {
         self.postBlock = postBlock
     }
     
-    func executePreBlock() {
-        preBlock?()
+    func executePreBlock() async throws {
+        try await preBlock?()
     }
     
-    func executePostBlock() {
-        postBlock?()
+    func executePostBlock() async throws {
+        try await postBlock?()
     }
 }
