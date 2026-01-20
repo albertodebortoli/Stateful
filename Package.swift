@@ -16,10 +16,12 @@ let package = Package(
     targets: [
         .target(
             name: "Stateful",
-            path: "Framework/Sources"),
+            path: "Framework/Sources"
+        ),
         .testTarget(
             name: "StatefulTests",
             dependencies: ["Stateful"],
-            path: "Tests/Sources")
+            path: "Tests/Sources"
+        )
     ]
 )

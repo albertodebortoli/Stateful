@@ -4,6 +4,10 @@ import Foundation
 
 public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable> {
     
+    enum StateMachineError: Error {
+        case noTransitionForEvent(Event)
+    }
+    
     nonisolated(unsafe) public var enableLogging: Bool = false
     public private(set) var currentState: State
     
@@ -24,12 +28,12 @@ public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable
         }
     }
     
-    public func process(event: Event) -> TransitionResult {
+    public func process(event: Event) throws {
         let transitions = transitionsByEvent[event]
         let performableTransitions = transitions?.filter { $0.source == currentState } ?? []
         
         if performableTransitions.isEmpty {
-            return .failure
+            throw StateMachineError.noTransitionForEvent(event)
         }
         
         assert(performableTransitions.count == 1, "Found multiple transitions with event '\(event)' and source '\(currentState)'.")
@@ -48,8 +52,6 @@ public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable
         transition.executePostBlock()
         
         log(message: "Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
-        
-        return .success
     }
     
     private func log(message: String) {
