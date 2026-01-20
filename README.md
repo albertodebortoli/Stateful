@@ -1,9 +1,9 @@
 # Stateful 🦜
 
 [![Build Status](https://travis-ci.org/albertodebortoli/Stateful.svg?branch=master)](https://travis-ci.org/albertodebortoli/Stateful)
-[![Version](https://img.shields.io/cocoapods/v/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
-[![License](https://img.shields.io/cocoapods/l/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
-[![Platform](https://img.shields.io/cocoapods/p/Stateful.svg?style=flat)](https://cocoapods.org/pods/Stateful)
+[![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-iOS%2013%2B-lightgrey.svg)](https://developer.apple.com/ios/)
 
 The easiest state machine in Swift.
 
@@ -95,11 +95,20 @@ Example:
 
 ## Installation
 
-Stateful is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Swift Package Manager
 
-```ruby
-pod 'Stateful'
+Add Stateful to your project using Xcode:
+
+1. File → Add Package Dependencies...
+2. Enter the repository URL: `https://github.com/albertodebortoli/Stateful.git`
+3. Select the version you want to use
+
+Or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/albertodebortoli/Stateful.git", from: "1.0.0")
+]
 ```
 
 ## Author
