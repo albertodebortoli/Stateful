@@ -7,93 +7,58 @@
 
 import Foundation
 
-open class StateMachine<State: Hashable, Event: Hashable> {
+public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable> {
     
-    public var enableLogging: Bool = false
-    public var currentState: State {
-        return {
-            workingQueue.sync {
-                return internalCurrentState
-            }
-            }()
-    }
+    nonisolated(unsafe) public var enableLogging: Bool = false
+    public private(set) var currentState: State
     
-    private var internalCurrentState: State
-    private var transitionsByEvent: [Event : [Transition<State, Event>]] = [:]
+    private var transitionsByEvent: [Event: [Transition<State, Event>]] = [:]
     
-    private let lockQueue: DispatchQueue
-    private let workingQueue: DispatchQueue
-    private let callbackQueue: DispatchQueue
-    
-    public init(initialState: State, callbackQueue: DispatchQueue? = nil) {
-        self.internalCurrentState = initialState
-        self.lockQueue = DispatchQueue(label: "com.albertodebortoli.statemachine.queue.lock")
-        self.workingQueue = DispatchQueue(label: "com.albertodebortoli.statemachine.queue.working")
-        self.callbackQueue = callbackQueue ?? .main
+    public init(initialState: State) {
+        self.currentState = initialState
     }
     
     public func add(transition: Transition<State, Event>) {
-        lockQueue.sync {
-            if let transitions = self.transitionsByEvent[transition.event] {
-                if (transitions.filter { return $0.source == transition.source }.count > 0) {
-                    assertionFailure("Transition with event '\(transition.event)' and source '\(transition.source)' already existing.")
-                }
-                self.transitionsByEvent[transition.event]?.append(transition)
-            } else {
-                self.transitionsByEvent[transition.event] = [transition]
+        if let transitions = transitionsByEvent[transition.event] {
+            if transitions.contains(where: { $0.source == transition.source }) {
+                assertionFailure("Transition with event '\(transition.event)' and source '\(transition.source)' already existing.")
             }
+            transitionsByEvent[transition.event]?.append(transition)
+        } else {
+            transitionsByEvent[transition.event] = [transition]
         }
     }
     
-    public func process(event: Event, execution: (() -> Void)? = nil, callback: TransitionBlock? = nil) {
-        var transitions: [Transition<State, Event>]?
-        lockQueue.sync {
-            transitions = self.transitionsByEvent[event]
+    public func process(event: Event) -> TransitionResult {
+        let transitions = transitionsByEvent[event]
+        let performableTransitions = transitions?.filter { $0.source == currentState } ?? []
+        
+        if performableTransitions.isEmpty {
+            return .failure
         }
         
-        workingQueue.async {
-            let performableTransitions = transitions?.filter { return $0.source == self.internalCurrentState } ?? []
-            
-            if performableTransitions.count == 0 {
-                self.callbackQueue.async {
-                    callback?(.failure)
-                }
-                return
-            }
-            
-            assert(performableTransitions.count == 1, "Found multiple transitions with event '\(event)' and source '\(self.internalCurrentState)'.")
-            
-            let transition = performableTransitions.first!
-            
-            self.log(message: "Processing event '\(event)' from '\(self.internalCurrentState)'")
-            self.callbackQueue.async {
-                transition.executePreBlock()
-            }
-            
-            self.log(message: "Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
-            
-            self.callbackQueue.async {
-                execution?()
-            }
-            
-            let previousState = self.internalCurrentState
-            self.internalCurrentState = transition.destination
-            
-            self.log(message: "Processed state change from '\(previousState)' to '\(transition.destination)'")
-            self.callbackQueue.async {
-                transition.executePostBlock()
-            }
-            
-            self.log(message: "Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
-            
-            self.callbackQueue.async {
-                callback?(.success)
-            }
-        }
+        assert(performableTransitions.count == 1, "Found multiple transitions with event '\(event)' and source '\(currentState)'.")
+        
+        let transition = performableTransitions.first!
+        
+        log(message: "Processing event '\(event)' from '\(currentState)'")
+        transition.executePreBlock()
+        
+        log(message: "Processed pre condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
+        
+        let previousState = currentState
+        currentState = transition.destination
+        
+        log(message: "Processed state change from '\(previousState)' to '\(transition.destination)'")
+        transition.executePostBlock()
+        
+        log(message: "Processed post condition for event '\(event)' from '\(transition.source)' to '\(transition.destination)'")
+        
+        return .success
     }
     
     private func log(message: String) {
-        if self.enableLogging {
+        if enableLogging {
             print("[Stateful 🦜] \(message)")
         }
     }
