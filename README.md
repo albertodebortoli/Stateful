@@ -1,6 +1,6 @@
 # Stateful 🦜
 
-[![Build Status](https://travis-ci.org/albertodebortoli/Stateful.svg?branch=master)](https://travis-ci.org/albertodebortoli/Stateful)
+[![Build Status](https://github.com/albertodebortoli/Stateful/actions/workflows/pull-request-workflow.yml/badge.svg)](https://github.com/albertodebortoli/Stateful/actions)
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-iOS%2013%2B%20%7C%20macOS%2010.15%2B-lightgrey.svg)](https://developer.apple.com/)
@@ -31,45 +31,43 @@ enum StateType {
 let stateMachine = StateMachine<StateType, EventType>(initialState: .idle)
 ```
 
-`StateMachine` will use the main queue to execute the transition pre and post blocks but you can optionally provide a custom one.
-
-```swift
-let dispatchQueue = DispatchQueue(label: "com.albertodebortoli.someSerialCallbackQueue")
-let stateMachine = StateMachine<StateType, EventType>(initialState: StateType.idle, callbackQueue: dispatchQueue)
-```
+`StateMachine` is an actor and provides thread-safety via Swift Concurrency.
 
 - create transitions and add them to the state machine (the state machine will automatically recognize the new statuses)
 
 ```swift
-let t1 = Transition<StateType, EventType>(with: .start,
-                    from: .idle,
-                    to: .started)
+let t1 = Transition<StateType, EventType>(
+    with: .start,
+    from: .idle,
+    to: .started
+)
                     
-let t2 = Transition<StateType, EventType>(with: .pause,
-                    from: .started,
-                    to: .idle,
-                    preBlock: {
-                        print("Going to move from \(StateType.started) to \(StateType.idle)!")
-                    }, postBlock: {
-                        print("Just moved from \(StateType.started) to \(StateType.idle)!")
-    })
+let t2 = Transition<StateType, EventType>(
+    with: .pause,
+    from: .started,
+    to: .idle,
+    preBlock: {
+        print("Going to move from \(StateType.started) to \(StateType.idle)!")
+    }, postBlock: {
+        print("Just moved from \(StateType.started) to \(StateType.idle)!")
+    }
+)
 
-stateMachine.add(transition: t1)
-stateMachine.add(transition: t2)
+await stateMachine.add(transition: t1)
+await stateMachine.add(transition: t2)
 ```
 
 - process events like so
 
 ```swift
-stateMachine.process(event: .start)
-stateMachine.process(event: .pause, callback: { result in
-    switch result {
-    case .success:
-        print("Event 'pause' was processed")
-    case .failure:
-        print("Event 'pause' cannot currently be processed.")
-    }
-})
+try await stateMachine.process(event: .start)
+
+do {
+    try await stateMachine.process(event: .pause)
+    print("Event 'pause' was processed")
+} catch {
+    print("Event 'pause' cannot currently be processed.")
+}
 ```
 
 ### Logging
@@ -93,6 +91,12 @@ Example:
 [Stateful 🦜]: Processed post condition for event 'stop' from 'started' to 'idle'
 ```
 
+## Requirements
+
+- Swift 6.2+
+- iOS 13.0+ / macOS 10.15+
+- Xcode 26.2+
+
 ## Installation
 
 ### Swift Package Manager
@@ -107,13 +111,13 @@ Or add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/albertodebortoli/Stateful.git", from: "1.0.0")
+    .package(url: "https://github.com/albertodebortoli/Stateful.git", from: "3.0.0")
 ]
 ```
 
 ## Author
 
-Alberto De Bortoli, albertodebortoli.website@gmail.com
+Alberto De Bortoli
 
 ## License
 

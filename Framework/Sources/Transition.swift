@@ -2,11 +2,6 @@
 
 import Foundation
 
-public enum TransitionResult: Sendable {
-    case success
-    case failure
-}
-
 public typealias ExecutionBlock = @Sendable () -> Void
 
 public struct Transition<State: Sendable, Event: Sendable>: Sendable {
