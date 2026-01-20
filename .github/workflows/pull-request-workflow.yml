@@ -9,6 +9,8 @@ jobs:
         include:
           - platform: iOS
             destination: 'platform=iOS Simulator,name=iPhone 17'
+          - platform: macOS
+            destination: 'platform=macOS'
     name: Tests (${{ matrix.platform }})
     steps:
     - name: Cancel previous jobs

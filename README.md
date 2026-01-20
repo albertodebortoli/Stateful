@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/albertodebortoli/Stateful.svg?branch=master)](https://travis-ci.org/albertodebortoli/Stateful)
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-iOS%2013%2B-lightgrey.svg)](https://developer.apple.com/ios/)
+[![Platform](https://img.shields.io/badge/platform-iOS%2013%2B%20%7C%20macOS%2010.15%2B-lightgrey.svg)](https://developer.apple.com/)
 
 The easiest state machine in Swift.
 
