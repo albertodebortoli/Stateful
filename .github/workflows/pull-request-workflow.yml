@@ -2,8 +2,14 @@ name: Pull Request Workflow
 on: [pull_request]
 jobs:
   run-tests:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        include:
+          - platform: iOS
+            destination: 'platform=iOS Simulator,name=iPhone 17'
+    name: Tests (${{ matrix.platform }})
     steps:
     - name: Cancel previous jobs
       uses: styfle/cancel-workflow-action@0.6.0
@@ -17,15 +23,11 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Setup Xcode
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: 26.2
-
-    - name: Setup ruby and bundler dependencies
-      uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true
+      run: sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
 
     - name: Run tests
-      run: bundle exec fastlane unit_tests device:'iPhone 17'
-    
+      run: |
+        xcodebuild test \
+          -scheme Stateful \
+          -destination '${{ matrix.destination }}' \
+          -resultBundlePath TestResults-${{ matrix.platform }}.xcresult
