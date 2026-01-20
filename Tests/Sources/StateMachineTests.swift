@@ -13,12 +13,12 @@ class StateMachineTests: XCTestCase {
     typealias TransitionDefault = Transition<StateType, EventType>
     typealias StateMachineDefault = StateMachine<StateType, EventType>
     
-    enum EventType {
+    enum EventType: Sendable {
         case e1
         case e2
     }
     
-    enum StateType {
+    enum StateType: Sendable {
         case idle
         case started
         case running
@@ -38,38 +38,56 @@ class StateMachineTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_Creation() {
-        XCTAssertEqual(stateMachine.currentState, .idle)
+    func test_Creation() async {
+        let state = await stateMachine.currentState
+        XCTAssertEqual(state, .idle)
     }
     
-    func test_SingleTransition() {
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .idle)
+    func test_SingleTransition() async {
+        var result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .failure)
+        var state = await stateMachine.currentState
+        XCTAssertEqual(state, .idle)
         
         let transition = TransitionDefault(with: .e1, from: .idle, to: .started)
-        stateMachine.add(transition: transition)
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .started)
+        await stateMachine.add(transition: transition)
+        result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .success)
+        state = await stateMachine.currentState
+        XCTAssertEqual(state, .started)
     }
     
-    func test_MultipleTransistions() {
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .idle)
+    func test_MultipleTransistions() async {
+        var result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .failure)
+        var state = await stateMachine.currentState
+        XCTAssertEqual(state, .idle)
         
         let transition1 = TransitionDefault(with: .e1, from: .idle, to: .started)
-        stateMachine.add(transition: transition1)
+        await stateMachine.add(transition: transition1)
         let transition2 = TransitionDefault(with: .e2, from: .started, to: .idle)
-        stateMachine.add(transition: transition2)
+        await stateMachine.add(transition: transition2)
         let transition3 = TransitionDefault(with: .e1, from: .started, to: .idle)
-        stateMachine.add(transition: transition3)
+        await stateMachine.add(transition: transition3)
         
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .started)
-        stateMachine.process(event: .e2)
-        XCTAssertEqual(stateMachine.currentState, .idle)
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .started)
-        stateMachine.process(event: .e1)
-        XCTAssertEqual(stateMachine.currentState, .idle)
+        result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .success)
+        state = await stateMachine.currentState
+        XCTAssertEqual(state, .started)
+        
+        result = await stateMachine.process(event: .e2)
+        XCTAssertEqual(result, .success)
+        state = await stateMachine.currentState
+        XCTAssertEqual(state, .idle)
+        
+        result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .success)
+        state = await stateMachine.currentState
+        XCTAssertEqual(state, .started)
+        
+        result = await stateMachine.process(event: .e1)
+        XCTAssertEqual(result, .success)
+        state = await stateMachine.currentState
+        XCTAssertEqual(state, .idle)
     }
 }

@@ -7,15 +7,14 @@
 
 import Foundation
 
-public enum TransitionResult {
+public enum TransitionResult: Sendable {
     case success
     case failure
 }
 
-public typealias ExecutionBlock = (() -> Void)
-public typealias TransitionBlock = ((TransitionResult) -> Void)
+public typealias ExecutionBlock = @Sendable () -> Void
 
-public struct Transition<State, Event> {
+public struct Transition<State: Sendable, Event: Sendable>: Sendable {
     
     public let event: Event
     public let source: State
