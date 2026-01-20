@@ -1,9 +1,4 @@
-//
 //  StateMachine.swift
-//  Stateful
-//
-//  Created by Alberto De Bortoli on 16/12/2018.
-//
 
 import Foundation
 
