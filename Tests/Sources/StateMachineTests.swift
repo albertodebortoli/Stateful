@@ -1,14 +1,9 @@
-//
 //  StateMachineTests.swift
-//  Stateful
-//
-//  Created by Alberto De Bortoli on 16/12/2018.
-//
 
-import XCTest
+import Testing
 @testable import Stateful
 
-class StateMachineTests: XCTestCase {
+struct StateMachineTests {
     
     typealias TransitionDefault = Transition<StateType, EventType>
     typealias StateMachineDefault = StateMachine<StateType, EventType>
@@ -25,43 +20,37 @@ class StateMachineTests: XCTestCase {
         case completed
     }
     
-    var stateMachine: StateMachine<StateType, EventType>!
+    var stateMachine: StateMachine<StateType, EventType>
     
-    override func setUp() {
-        super.setUp()
+    init() {
         stateMachine = StateMachineDefault(initialState: .idle)
         stateMachine.enableLogging = true
     }
     
-    override func tearDown() {
-        stateMachine = nil
-        super.tearDown()
-    }
-    
-    func test_Creation() async {
+    @Test func creation() async {
         let state = await stateMachine.currentState
-        XCTAssertEqual(state, .idle)
+        #expect(state == .idle)
     }
     
-    func test_SingleTransition() async {
+    @Test func singleTransition() async {
         var result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .failure)
+        #expect(result == .failure)
         var state = await stateMachine.currentState
-        XCTAssertEqual(state, .idle)
+        #expect(state == .idle)
         
         let transition = TransitionDefault(with: .e1, from: .idle, to: .started)
         await stateMachine.add(transition: transition)
         result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .success)
+        #expect(result == .success)
         state = await stateMachine.currentState
-        XCTAssertEqual(state, .started)
+        #expect(state == .started)
     }
     
-    func test_MultipleTransistions() async {
+    @Test func multipleTransitions() async {
         var result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .failure)
+        #expect(result == .failure)
         var state = await stateMachine.currentState
-        XCTAssertEqual(state, .idle)
+        #expect(state == .idle)
         
         let transition1 = TransitionDefault(with: .e1, from: .idle, to: .started)
         await stateMachine.add(transition: transition1)
@@ -71,23 +60,23 @@ class StateMachineTests: XCTestCase {
         await stateMachine.add(transition: transition3)
         
         result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .success)
+        #expect(result == .success)
         state = await stateMachine.currentState
-        XCTAssertEqual(state, .started)
+        #expect(state == .started)
         
         result = await stateMachine.process(event: .e2)
-        XCTAssertEqual(result, .success)
+        #expect(result == .success)
         state = await stateMachine.currentState
-        XCTAssertEqual(state, .idle)
+        #expect(state == .idle)
         
         result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .success)
+        #expect(result == .success)
         state = await stateMachine.currentState
-        XCTAssertEqual(state, .started)
+        #expect(state == .started)
         
         result = await stateMachine.process(event: .e1)
-        XCTAssertEqual(result, .success)
+        #expect(result == .success)
         state = await stateMachine.currentState
-        XCTAssertEqual(state, .idle)
+        #expect(state == .idle)
     }
 }
