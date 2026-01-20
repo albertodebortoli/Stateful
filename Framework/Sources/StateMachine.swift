@@ -2,11 +2,11 @@
 
 import Foundation
 
+public enum StateMachineError<Event: Hashable & Sendable>: Equatable, Error {
+    case noTransitionForEvent(Event)
+}
+
 public actor StateMachine<State: Hashable & Sendable, Event: Hashable & Sendable> {
-    
-    enum StateMachineError: Error {
-        case noTransitionForEvent(Event)
-    }
     
     nonisolated(unsafe) public var enableLogging: Bool = false
     public private(set) var currentState: State

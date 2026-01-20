@@ -32,23 +32,24 @@ struct StateMachineTests {
         #expect(state == .idle)
     }
     
-    @Test func singleTransition() async {
-        var result = await stateMachine.process(event: .e1)
-        #expect(result == .failure)
+    @Test func singleTransition() async throws {
+        await #expect(throws: StateMachineError<EventType>.noTransitionForEvent(.e1)) {
+            try await stateMachine.process(event: .e1)
+        }
         var state = await stateMachine.currentState
         #expect(state == .idle)
         
         let transition = TransitionDefault(with: .e1, from: .idle, to: .started)
         await stateMachine.add(transition: transition)
-        result = await stateMachine.process(event: .e1)
-        #expect(result == .success)
+        try await stateMachine.process(event: .e1)
         state = await stateMachine.currentState
         #expect(state == .started)
     }
     
-    @Test func multipleTransitions() async {
-        var result = await stateMachine.process(event: .e1)
-        #expect(result == .failure)
+    @Test func multipleTransitions() async throws {
+        await #expect(throws: StateMachineError<EventType>.noTransitionForEvent(.e1)) {
+            try await stateMachine.process(event: .e1)
+        }
         var state = await stateMachine.currentState
         #expect(state == .idle)
         
@@ -59,23 +60,19 @@ struct StateMachineTests {
         let transition3 = TransitionDefault(with: .e1, from: .started, to: .idle)
         await stateMachine.add(transition: transition3)
         
-        result = await stateMachine.process(event: .e1)
-        #expect(result == .success)
+        try await stateMachine.process(event: .e1)
         state = await stateMachine.currentState
         #expect(state == .started)
         
-        result = await stateMachine.process(event: .e2)
-        #expect(result == .success)
+        try await stateMachine.process(event: .e2)
         state = await stateMachine.currentState
         #expect(state == .idle)
         
-        result = await stateMachine.process(event: .e1)
-        #expect(result == .success)
+        try await stateMachine.process(event: .e1)
         state = await stateMachine.currentState
         #expect(state == .started)
         
-        result = await stateMachine.process(event: .e1)
-        #expect(result == .success)
+        try await stateMachine.process(event: .e1)
         state = await stateMachine.currentState
         #expect(state == .idle)
     }
