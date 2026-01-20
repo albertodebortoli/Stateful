@@ -6,27 +6,10 @@ platform :ios do
         ensure_bundle_exec
         $test_output_folder = "fastlane/test_output"
         $derived_data_folder = "./derived_data"
-        $workspace_filename = "Example/Stateful.xcworkspace"
         $common_test_xcargs = "COMPILER_INDEX_STORE_ENABLE=NO"
     end
 
-    lane :unit_tests_cocoapods do |parameters|
-        UI.user_error! "Missing parameter 'device'" unless parameters.has_key?(:device)
-        device = parameters[:device]
-        run_tests(
-            workspace: $workspace_filename,
-            scheme: "DemoApp",
-            testplan: "UnitTests",
-            device: device,
-            code_coverage: true,
-            result_bundle: true,
-            concurrent_workers: 1,
-            xcargs: $common_test_xcargs,
-            derived_data_path: $derived_data_folder
-        )
-    end
-
-    lane :unit_tests_spm do |parameters|
+    lane :unit_tests do |parameters|
         UI.user_error! "Missing parameter 'device'" unless parameters.has_key?(:device)
         device = parameters[:device]
         run_tests(
