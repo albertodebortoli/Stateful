@@ -15,16 +15,16 @@ struct TransitionTests {
         #expect(transition.destination == to)
     }
     
-    @Test func callback() async {
-        await confirmation("preBlock called") { preConfirmation in
-            await confirmation("postBlock called") { postConfirmation in
+    @Test func callback() async throws {
+        try await confirmation("preBlock called") { preConfirmation in
+            try await confirmation("postBlock called") { postConfirmation in
                 let transition = Transition(with: "event", from: "from", to: "to", preBlock: {
                     preConfirmation()
                 }, postBlock: {
                     postConfirmation()
                 })
-                transition.executePreBlock()
-                transition.executePostBlock()
+                try await transition.executePreBlock()
+                try await transition.executePostBlock()
             }
         }
     }
